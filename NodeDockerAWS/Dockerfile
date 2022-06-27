@@ -1,4 +1,7 @@
-# Especificar la base image.
+# Especificar la base image. No vamos a trabajar con una
+# imagen que está completamente vacía, sino con una que
+# ya tiene cosas que necesitamos para trabajar con una
+# aplicación de Node.
 # https://docs.docker.com/engine/reference/builder/#from
 FROM node:alpine
 
@@ -10,19 +13,21 @@ FROM node:alpine
 # it will be created even if it’s not used in any
 # subsequent Dockerfile instruction.
 # Este el directorio en donde todos nuestros archivos van a estar
-# y desde donde va a correr nuestro container.
+# y desde donde va a correr nuestro container. O sea, tal como
+# se dijo antes, los comandos COPY y RUN que vienen después
+# van a estar referidos a WORKDIR.
 WORKDIR /app
 
 # https://docs.docker.com/engine/reference/builder/#copy
-# The COPY instruction copies new files or directories
+# The COPY <src> <dest> instruction copies new files or directories
 # from <src> and adds them to the filesystem of the
 # container at the path <dest>.
+# El punto (.) como segundo parámetro, o destination, es el working directory.
 # Copiamos primero este file, porque Docker trabaja en layers,
 # y de este modo si luego cambiamos otro file que no sea este,
 # no necesitaremos correr de nuevo npm install, que es time consuming.
 # El resto de los files los copiamos más adelante, y de ese modo los
 # podemos cambiar sin incurrir en ese overhead.
-# El punto (.) como segundo parámetro, o destination, es el working directory.
 COPY package.json .
 
 # https://docs.docker.com/engine/reference/builder/#run

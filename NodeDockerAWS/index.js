@@ -1,3 +1,9 @@
+/**
+ * El tutorial está en Odoo on Docker.docx, en el título
+ * How to Deploy a Docker App to AWS ECS
+ */
+
+
 // Para que sea una aplicación Express
 // https://expressjs.com/
 const express = require("express");
