@@ -1,0 +1,6 @@
+tup\crud\services\AnimeServiceImpl.class
+tup\crud\repositories\AnimeRepository.class
+tup\crud\models\Anime.class
+tup\crud\controllers\AnimeController.class
+tup\crud\CrudApplication.class
+tup\crud\services\AnimeService.class

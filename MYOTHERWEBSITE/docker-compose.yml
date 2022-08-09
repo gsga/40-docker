@@ -1,0 +1,29 @@
+# DEPRECATED !!! version: '3.9'
+services:
+  apache-service:
+    container_name: my-other-website
+    image: httpd:latest
+    cpus: 1.5
+    mem_limit: 2048m
+    ports:
+      - "80:80"
+    volumes:
+      - ./website:/usr/local/apache2/htdocs
+  nginx-service:
+    container_name: nginx-app
+    image: nginx:latest
+    cpus: 2.5
+    mem_limit: 4096m
+    ports:
+      - "99:80"
+    volumes:
+      - ./nginx-app:/usr/share/nginx/html
+  tomcat-service:
+    container_name: java-web-app
+    image: tomcat:latest
+    cpus: 3.5
+    mem_limit: 4096m
+    ports:
+      - "8080:80"
+    volumes:
+      - ./java/target:/usr/local/apache2/htdocs
