@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS `anime`;
 CREATE DATABASE IF NOT EXISTS `anime` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 DROP USER IF EXISTS `cruduser` @`%`;
-CREATE USER IF NOT EXISTS `cruduser` @`%` IDENTIFIED BY 'crudPassword';
+CREATE USER IF NOT EXISTS `cruduser` @`%` IDENTIFIED BY '1234';
 GRANT USAGE ON *.* TO `cruduser` @`%`;
 GRANT ALL PRIVILEGES ON `anime`.* TO 'cruduser ' @' % ';
 USE `anime`;

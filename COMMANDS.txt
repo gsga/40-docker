@@ -1,0 +1,35 @@
+docker images
+
+docker ps -a
+
+docker rm mysql
+
+docker pull mysql
+
+docker run -d --name mysqlCnt -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -v "C:\GIT\40-docker\db":/var/lib/mysql mysql
+
+docker network create crudNet
+
+docker network connect crudNet mysqlCnt
+
+docker build -t crud .
+
+docker run --name crudCnt --net crudNet -p 8080:8080 -e MYSQL_HOST=mysqlCnt -e MYSQL_USER=cruduser -e MYSQL_PASSWORD=crudPassword -e MYSQL_PORT=3306 crud
+
+
+docker volume ls
+docker volume prune -f
+
+
+docker pull nginx
+
+FROM nginx:latest
+COPY ./website /usr/share/nginx/html/
+
+docker build -t my-nginx-image .
+
+docker build -t my-other-nginx-image .
+
+docker-compose up
+
+docker build -t java-jar-image .

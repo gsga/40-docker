@@ -1,7 +1,6 @@
-# DEPRECATED !!! version: '3.9'
 services:
   apache-service:
-    container_name: my-other-website
+    container_name: myotherwebsite
     image: httpd:latest
     cpus: 1.5
     mem_limit: 2048m
@@ -24,6 +23,6 @@ services:
     cpus: 3.5
     mem_limit: 4096m
     ports:
-      - "8080:80"
+      - "8080:8080"
     volumes:
-      - ./java/target:/usr/local/apache2/htdocs
+      - ./java/target:/usr/local/tomcat/webapps

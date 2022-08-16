@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   my-nginx-service:
     container_name: my-website

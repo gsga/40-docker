@@ -1,0 +1,10 @@
+services:
+  tomcat-service:
+    container_name: sample-war
+    image: tomcat:latest
+    cpus: 3.5
+    mem_limit: 4096m
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/usr/local/tomcat/webapps
