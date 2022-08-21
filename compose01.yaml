@@ -1,0 +1,45 @@
+# https://youtu.be/TSySwrQcevM
+services:
+  api:
+    # Docker Compose usa para el build el Dockerfile de cada proyecto
+    build: ./api
+    container_name: api_c
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./api:/app
+      - ./app/node_modules
+  myblog:
+    # Docker Compose usa para el build el Dockerfile de cada proyecto
+    build: ./myblog
+    container_name: myblog_c
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
+    
+
+
+# https://youtu.be/QePBbG5MoKk
+
+
+# Docker Compose usa el .dockerignore de cada proyecto
+# por lo tanto en la root folder tengo que poner uno
+# En este ejemplo, se trata de una aplicación de node
+node_modules
+
+# El Dockerfile de esa misma aplicación es
+FROM node:17-alpine
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+
