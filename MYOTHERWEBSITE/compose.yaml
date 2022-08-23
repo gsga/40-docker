@@ -1,6 +1,6 @@
 services:
-  apache-service:
-    container_name: myotherwebsite
+  apache-s:
+    container_name: website-c
     image: httpd:latest
     cpus: 1.5
     mem_limit: 2048m
@@ -8,8 +8,8 @@ services:
       - "80:80"
     volumes:
       - ./website:/usr/local/apache2/htdocs
-  nginx-service:
-    container_name: nginx-app
+  nginx-s:
+    container_name: nginx-c
     image: nginx:latest
     cpus: 2.5
     mem_limit: 4096m
@@ -17,8 +17,8 @@ services:
       - "99:80"
     volumes:
       - ./nginx-app:/usr/share/nginx/html
-  tomcat-service:
-    container_name: sample-war
+  tomcat-s:
+    container_name: samplewar-c
     image: tomcat:latest
     cpus: 3.5
     mem_limit: 4096m
@@ -26,9 +26,9 @@ services:
       - "8080:8080"
     volumes:
       - ./samplewar:/usr/local/tomcat/webapps
-  tomcat-service2:
-    container_name: sample-jar
-    image: java-jar-image:latest
+  tomcat-s2:
+    container_name: jar-c
+    image: jar-i:latest
     cpus: 3.5
     mem_limit: 4096m
     ports:

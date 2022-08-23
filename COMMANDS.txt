@@ -1,3 +1,17 @@
+docker system prune
+
+
+docker run -d --name mysql-c -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_PASSWORD=1234 -e MYSQL_USER=cruduser -e MYSQL_DATABASE=anime -v %CD%/mysqldb:/var/lib/mysql mysql
+
+docker network create crud-n
+docker network connect crud-n mysql-c
+
+docker build -t crud .
+docker run --name crud-c --net crud-n -p 8080:8080 -e MYSQL_HOST=mysql-c -e MYSQL_USER=cruduser -e MYSQL_PASSWORD=1234 -e MYSQL_PORT=3306 crud
+
+
+
+
 docker images
 
 docker ps -a
@@ -30,6 +44,40 @@ docker build -t my-nginx-image .
 
 docker build -t my-other-nginx-image .
 
+docker build -t java-jar-image .
+
+
+docker run bash:latest bash -c "echo hello > file.txt && cat file.txt"
+
+docker run bash:latest bash -c "cat file.txt"
+
+docker run -v $(pwd -W):/var/opt/project bash:latest bash -c "echo Hello > /var/opt/project/file.txt"
+
+En Linux
+
+# run mysql container in the background
+docker run --name mysql-db -v $(pwd)/datadir:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:8.0.28-debian
+
+# show content of data directory
+ls -la datadir
+
+# stop mysql container
+docker rm -f mysql-db
+
+# Lo mismo pero en Windows
+
+# run mysql container in the background
+docker run --name mysql-db -v %CD%/datadir:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:8.0.28-debian
+
+# show content of data directory
+dir /og datadir
+
+# stop mysql container
+docker rm -f mysql-db
+
+
 docker-compose up
 
-docker build -t java-jar-image .
+docker-compose down --rmi all -v
+
+

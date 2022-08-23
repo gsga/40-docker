@@ -1,7 +1,7 @@
 services:
-  my-nginx-service:
-    container_name: my-website
-    image: my-nginx-image:latest
+  nginx-s:
+    container_name: website-c
+    image: nginx-i
     cpus: 1.5
     mem_limit: 2048m
     ports:
