@@ -15,6 +15,14 @@ FROM node:alpine
 # y desde donde va a correr nuestro container. O sea, tal como
 # se dijo antes, los comandos COPY y RUN que vienen después
 # van a estar referidos a WORKDIR.
+# https://docs.docker.com/engine/reference/builder/#workdir
+# El directorio es del file system del container, no
+# de la PC local. La documentación no lo dice directamente,
+# sino que hay que deducirlo pensando sobre los 
+# ejemplos. En el caso de la siguiente instrucción, se
+# trata de un path absoluto, porque empieza con /,
+# y ese directorio habrá que buscarlo después en el 
+# file system del container, una vez que esté corriendo.
 WORKDIR /usr/src/app
 
 # https://docs.docker.com/engine/reference/builder/#copy
@@ -30,6 +38,40 @@ WORKDIR /usr/src/app
 # Primero copia los archivos y después corre 'npm install'.
 # De ese modo, los node_modules estarán cacheados hasta
 # que package.json o package-lock.json cambie.
+# 
+# https://www.geeksforgeeks.org/difference-between-package-json-and-package-lock-json-files/
+# 
+# En Node.js, package.json es un archivo de control 
+# de versiones que se usa para instalar varios 
+# paquetes en su proyecto. A medida que inicializa 
+# su aplicación de Node, verá tres archivos 
+# instalados en su aplicación que son node_modules, 
+# package.json y package.lock.json. 
+# 
+# package.json contiene metadatos sobre el proyecto 
+# y también las dependencias funcionales que 
+# requiere la aplicación.
+# 
+# package-lock.json se crea para bloquear la 
+# dependencia con la versión instalada. Instalará 
+# la última versión exacta de ese paquete en su 
+# aplicación y la guardará en package.json. Digamos 
+# que si la versión actual del paquete es 1.3.2, 
+# guardará la versión con el signo (^). Aquí caret(^)
+# significa que admitirá cualquier versión superior 
+# con la versión principal 1, por ejemplo. 1.2.2.
+# 
+# Sin package-lock.json, puede haber algunas 
+# diferencias en las versiones instaladas en 
+# diferentes entornos. Para superar este problema, 
+# se crea package-lock.json para obtener los mismos 
+# resultados en todos los entornos. Debe estar en el 
+# control de código fuente con el archivo package.json 
+# porque si cualquier otro usuario clona el proyecto 
+# e instala las dependencias, instalará exactamente 
+# las mismas dependencias que en el 
+# package-lock.json para evitar diferencias.
+# 
 COPY package.json .
 COPY package-lock.json .
 
@@ -67,4 +109,6 @@ EXPOSE 4200
 # --host	              Host to listen on.              string	localhost
 # --disable-host-check	Don't verify connected clients  boolean	false
 #                       are part of allowed hosts.
-CMD /usr/src/app/node_modules/.bin/ng serve --host 0.0.0.0 --disableHostCheck
+CMD /usr/src/app/node_modules/.bin/ng serve --host 0.0.0.0
+#  --disableHostCheck
+# El parámetro anterior lo comenté porque da error.

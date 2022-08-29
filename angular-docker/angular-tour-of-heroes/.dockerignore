@@ -1,3 +1,7 @@
 .angular
+.git
+gitignore
+*.zip
+*.md
 .vscode
 node_modules
